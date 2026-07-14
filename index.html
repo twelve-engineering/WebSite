@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Twelve Engineering</title>
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0a0a0a;
+      --grey:    #111111;
+      --mid:     #1a1a1a;
+      --line:    #222222;
+      --white:   #ffffff;
+      --muted:   #888888;
+      --accent:  #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 5vw;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+    }
+
+    .nav-logo span {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    nav ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav ul a:hover { color: var(--white); }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 5vw;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(255,255,255,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-logo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 2.5rem;
+      opacity: 0.95;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 7vw, 6rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title span {
+      display: block;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2.25rem;
+      border: 1px solid var(--white);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: background 0.25s, color 0.25s;
+    }
+
+    .btn:hover {
+      background: var(--white);
+      color: var(--black);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: var(--muted);
+      animation: scrollLine 1.8s ease-in-out infinite;
+    }
+
+    @keyframes scrollLine {
+      0%   { opacity: 1; transform: scaleY(1); transform-origin: top; }
+      100% { opacity: 0; transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ── About / Features ── */
+    #about {
+      padding: 7rem 5vw;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3.5rem;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      max-width: 1100px;
+    }
+
+    .about-grid h2 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .about-grid p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    /* ── Services ── */
+    #services {
+      padding: 7rem 5vw;
+      border-top: 1px solid var(--line);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      max-width: 1100px;
+    }
+
+    .service-card {
+      background: var(--black);
+      padding: 2.5rem 2rem;
+      transition: background 0.25s;
+    }
+
+    .service-card:hover { background: var(--mid); }
+
+    .service-number {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.02em;
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── Contact ── */
+    #contact {
+      padding: 7rem 5vw;
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-inner {
+      max-width: 680px;
+    }
+
+    .contact-inner h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .contact-inner p {
+      color: var(--muted);
+      margin-bottom: 3rem;
+      font-size: 1rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    form input,
+    form textarea {
+      width: 100%;
+      background: var(--grey);
+      border: 1px solid var(--line);
+      color: var(--white);
+      padding: 1rem 1.25rem;
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+
+    form input::placeholder,
+    form textarea::placeholder { color: var(--muted); }
+
+    form input:focus,
+    form textarea:focus { border-color: var(--white); }
+
+    form textarea { height: 150px; }
+
+    .btn-submit {
+      align-self: flex-start;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 2.5rem 5vw;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .footer-logo img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      opacity: 0.7;
+    }
+
+    .footer-logo span {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    footer p {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      .about-grid   { grid-template-columns: 1fr; gap: 2rem; }
+      .form-row     { grid-template-columns: 1fr; }
+      nav ul        { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">
+      <img src="assets/logo.png" alt="Twelve logo" />
+      <span>Twelve</span>
+    </a>
+    <ul>
+      <li><a href="#about">Nosotros</a></li>
+      <li><a href="#services">Servicios</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <img class="hero-logo" src="assets/logo.png" alt="Twelve" />
+    <p class="hero-eyebrow">Twelve Engineering</p>
+    <h1 class="hero-title">
+      Construimos<br />
+      <span>el futuro digital.</span>
+    </h1>
+    <p class="hero-sub">
+      Ingeniería de software con enfoque en calidad, rendimiento y diseño.
+      Soluciones que escalan.
+    </p>
+    <a href="#contact" class="btn">Trabajemos juntos</a>
+    <div class="scroll-hint">Scroll</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">// Sobre nosotros</p>
+    <div class="about-grid">
+      <h2>Un equipo que convierte ideas en productos.</h2>
+      <p>
+        Twelve Engineering es un estudio de ingeniería de software enfocado en
+        construir productos digitales de alto impacto. Trabajamos con startups y
+        empresas que buscan ir más rápido, más lejos y con mejor arquitectura.<br /><br />
+        Creemos que el código limpio, el diseño minimalista y la ejecución precisa
+        son la base de cualquier producto exitoso.
+      </p>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <p class="section-label">// Lo que hacemos</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <p class="service-number">01</p>
+        <h3>Desarrollo Web</h3>
+        <p>Aplicaciones web modernas, rápidas y escalables. Frontend, backend y arquitecturas full-stack.</p>
+      </div>
+      <div class="service-card">
+        <p class="service-number">02</p>
+        <h3>Desarrollo Móvil</h3>
+        <p>Apps nativas y multiplataforma para iOS y Android con experiencias fluidas.</p>
+      </div>
+      <div class="service-card">
+        <p class="service-number">03</p>
+        <h3>Diseño UI/UX</h3>
+        <p>Interfaces limpias centradas en el usuario. Diseño funcional que convierte.</p>
+      </div>
+      <div class="service-card">
+        <p class="service-number">04</p>
+        <h3>Consultoría Técnica</h3>
+        <p>Revisión de arquitectura, auditorías de código y estrategia tecnológica para tu equipo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <p class="section-label">// Contacto</p>
+      <h2>¿Tienes un proyecto en mente?</h2>
+      <p>Cuéntanos de qué se trata. Respondemos en menos de 24 horas.</p>
+      <form>
+        <div class="form-row">
+          <input type="text"  placeholder="Nombre" required />
+          <input type="email" placeholder="Email"  required />
+        </div>
+        <input type="text" placeholder="Asunto" />
+        <textarea placeholder="Cuéntanos sobre tu proyecto..."></textarea>
+        <button type="submit" class="btn btn-submit">Enviar mensaje</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <img src="assets/logo.png" alt="Twelve" />
+      <span>Twelve Engineering</span>
+    </div>
+    <p>&copy; 2026 Twelve Engineering. Todos los derechos reservados.</p>
+  </footer>
+
+</body>
+</html>
