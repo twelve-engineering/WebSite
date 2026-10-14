@@ -166,38 +166,39 @@
             Platiquemos sobre el alcance técnico y las necesidades de tu sistema. Respondemos en menos de 24 horas hábiles.
           </p>
 
-       <form action="https://formspree.io/f/xrpelovy" method="POST" class="contact-form">
-  <div class="form-row">
-    <div class="form-group">
-      <label for="name">Nombre</label>
-      <input type="text" id="name" name="name" placeholder="Tu nombre o empresa" required />
-    </div>
-    <div class="form-group">
-      <label for="email">Correo electrónico</label>
-      <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" required />
-    </div>
-  </div>
+          <form action="https://formspree.io/f/xrpelovy" method="POST" class="contact-form" id="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Nombre</label>
+                <input type="text" id="name" name="name" placeholder="Tu nombre o empresa" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" required />
+              </div>
+            </div>
 
-  <div class="form-group">
-    <label for="subject">Asunto</label>
-    <input type="text" id="subject" name="subject" placeholder="Ej: Nuevo desarrollo, auditoría..." required />
-  </div>
+            <div class="form-group">
+              <label for="subject">Asunto</label>
+              <input type="text" id="subject" name="subject" placeholder="Ej: Nuevo desarrollo, auditoría..." required />
+            </div>
 
-  <div class="form-group">
-    <label for="message">Mensaje</label>
-    <textarea id="message" name="message" rows="5" placeholder="Cuéntanos detalles sobre requerimientos, tiempos o tecnologías..." required></textarea>
-  </div>
+            <div class="form-group">
+              <label for="message">Mensaje</label>
+              <textarea id="message" name="message" rows="5" placeholder="Cuéntanos detalles sobre requerimientos, tiempos o tecnologías..." required></textarea>
+            </div>
 
-  <button type="submit" class="btn btn-primary btn-submit">
-    <span>Enviar mensaje</span>
-  </button>
-</form>
+            <button type="submit" id="btn-submit" class="btn btn-primary btn-submit">
+              <span>Enviar mensaje</span>
+            </button>
+            <p id="form-status" style="display: none; margin-top: 15px; font-weight: 500; font-size: 0.95rem; text-align: center;"></p>
+          </form>
         </div>
       </div>
     </section>
   </main>
 
- <!-- FOOTER -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container footer-content">
       <div class="footer-brand">
